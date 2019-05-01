@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Project Portal</title>
+  </head>
+  
+  <body>
+    <div id="projectBlocksId"></div>
+  </body>
+  
+  <style>
+    body
+    {
+      font-family: Arial, Liberation Sans, sans-serif;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    
+    table
+    {
+      border-collapse: collapse;
+    }
+    
+    td
+    {
+      padding: 10px;
+      border: 3px solid black;
+    }
+    
+    img
+    {
+      width: 700px;
+    }
+    
+    .title
+    {
+      font-size: 40px;
+      font-weight: bold;
+      background-color: #EDEDED;
+      padding: 10px 20px;
+    }
+    
+    .description
+    {
+      vertical-align: top;
+      border-bottom: none;
+      padding: 20px;
+    }
+    
+    .link
+    {
+      border-top: none;
+      padding: 10px 20px 30px 20px;
+    }
+    
+    .footer
+    {
+      line-height: 1.5;
+      border: 5px solid black;
+      padding: 20px 10px;
+      margin: 10px 0px;
+    }
+  </style>
+  
+  <script type="module">
+    const BLOCK_DATA_LIST =
+    [
+      {
+        "imageUri": "https://raw.githubusercontent.com/Hyssopi/MapleStory-Reboot-Guild-Contribution-Comparison/master/images/splash.png",
+        "title": "MapleStory Reboot Guild Contribution Comparison",
+        "description": "Interactive visualization and comparison of the top MapleStory Reboot Guilds. Displays details and comparison of the guild contribution and member count. Visualizations include: line chart, summary/trends, and data table.",
+        "link": "https://hyssopi.github.io/MapleStory-Reboot-Guild-Contribution-Comparison/"
+      },
+      {
+        "imageUri": "images/HonorableRockBot.png",
+        "title": "MapleStory Reboot Guild Contribution Discord Bot",
+        "description": `
+          <div>Discord bot that provides MapleStory Reboot guild contribution data.</div>
+          <div>Data is linked to <a target="_blank" href="https://github.com/Hyssopi/MapleStory-Reboot-Guild-Contribution-Comparison">https://github.com/Hyssopi/MapleStory-Reboot-Guild-Contribution-Comparison</a></div>
+          <br>
+          <div><span style="font-weight: bold;">Link to add bot</span>: <a target="_blank" href="https://discordapp.com/api/oauth2/authorize?client_id=557789121678934019&permissions=0&scope=bot">https://discordapp.com/api/oauth2/authorize?client_id=557789121678934019&permissions=0&scope=bot</a></div>
+        `,
+        "link": ""
+      },
+      {
+        "imageUri": "https://raw.githubusercontent.com/Hyssopi/MapleStory-Music-YouTube-Downloader/master/images/DownloadProgress.png",
+        "title": "MapleStory Music YouTube Downloader",
+        "description": "Downloads MapleStory music from YouTube to the user's local PC in .mp3 audio format. Retrieves YouTube links and information from <a target=\"_blank\" href=\"https://github.com/maplestory-music/maplebgm-db\">maplestory-music/maplebgm-db</a>.",
+        "link": "https://github.com/Hyssopi/MapleStory-Music-YouTube-Downloader"
+      },
+      {
+        "imageUri": "https://raw.githubusercontent.com/Hyssopi/Bulk-YouTube-Downloader/master/images/DownloadProgress.png",
+        "title": "Bulk YouTube Downloader",
+        "description": "Downloads a list of YouTube links specified by the user.",
+        "link": "https://github.com/Hyssopi/Bulk-YouTube-Downloader"
+      },
+      {
+        "imageUri": "https://raw.githubusercontent.com/Hyssopi/Level-Experience-Visualization/master/images/splash.png",
+        "title": "Level Experience Visualization",
+        "description": "Interactive visualization of level and experience data for a selected list of games. Visualizations include: line chart, sunburst chart, and data table.",
+        "link": "https://hyssopi.github.io/Level-Experience-Visualization/"
+      },
+      {
+        "imageUri": "https://raw.githubusercontent.com/Hyssopi/Pokemon-Type-Network-Graph/master/images/splash.png",
+        "title": "Pokemon Type Network Graph",
+        "description": "Interactive network graph visualizing Pokemons and their associated Types.",
+        "link": "https://hyssopi.github.io/Pokemon-Type-Network-Graph/"
+      },
+      {
+        "imageUri": "https://raw.githubusercontent.com/Hyssopi/Audio-Visualizer/master/images/splash.png",
+        "title": "Audio Visualizer",
+        "description": "Display audio waveform (time domain), spectrum (frequency domain), and spectrogram (frequency domain over time) visualizations for the specified media (video/audio or audio).",
+        "link": "https://hyssopi.github.io/Audio-Visualizer/"
+      }
+    ];
+    
+    let html = '';
+    html += generateProjectBlocks(BLOCK_DATA_LIST);
+    html += generateFooter();
+    document.getElementById("projectBlocksId").innerHTML = html;
+    
+    /**
+     * Generates HTML project blocks for all projects in the list.
+     *
+     * @param blockDataList List of project data used to generate blocks
+     * @return HTML code to generate project blocks
+     */
+    function generateProjectBlocks(blockDataList)
+    {
+      let blocksHtml = '';
+      blocksHtml += '<table>';
+      for (let i = 0; i < blockDataList.length; i++)
+      {
+        blocksHtml += generateProjectBlock(blockDataList[i].imageUri, blockDataList[i].title, blockDataList[i].description, blockDataList[i].link);
+      }
+      blocksHtml += '</table>';
+      return blocksHtml;
+    }
+    
+    /**
+     * Generates HTML project block.
+     *
+     * @param imageUri URI to project image
+     * @param title Title of project
+     * @param description Description of project
+     * @param link Link to project
+     * @return HTML code to generate project block
+     */
+    function generateProjectBlock(imageUri, title, description, link)
+    {
+      let linkContentsHtml = link ? '<span style="font-weight: bold;">Link</span>: <a target="_blank" href="' + link + '">' + link + '</a>' : '';
+      return `
+        <tr>
+          <td rowspan="3">
+            <img src="${imageUri}" alt="${title}">
+          </td>
+          <td height="40" class="title">
+            ${title}
+          </td>
+        </tr>
+        <tr>
+          <td class="description">
+            ${description}
+          </td>
+        </tr>
+        <tr>
+          <td height="20" class="link">
+            ${linkContentsHtml}
+          </td>
+        </tr>
+      `;
+    }
+    
+    /**
+     * Generates HTML for footer.
+     *
+     * @return HTML code to generate footer
+     */
+    function generateFooter()
+    {
+      return `
+        <div class="footer">
+          <div>For comments/questions/feedback</div>
+          <div>Contact: "<span style="font-weight: bold; border: 1px solid black;">Seiy#0103</span>" in the official MapleStory Discord server: <a target="_blank" href="https://discord.gg/ms">https://discord.gg/ms</a></div>
+        </div>
+      `;
+    }
+  </script>
+</html>
